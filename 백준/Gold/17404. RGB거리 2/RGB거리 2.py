@@ -25,12 +25,11 @@ for a in range (0,3) :
     # cost[1] = [x for x in cost_dumy_one]
     # print(cost)
 
-    for i in range (0,num-1) :
+    for i in range (0,num) :
         for j in range (0,3) :
             for k in range (0,3) :
-                for o in range (0,3) :
-                    if j != o and o != k :
-                        dp[i+2][j] = min(dp[i+2][j], dp[i][k] + cost[i+1][o] + cost[i+2][j])
+                if j != k  :
+                    dp[i+1][j] = min(dp[i+1][j], cost[i+1][j] + dp[i][k])
 
     cost[1] = [x for x in cost_dumy_one]
     case_num_list.append(min(dp[num]))
