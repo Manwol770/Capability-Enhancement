@@ -1,16 +1,22 @@
-x = input().upper()
-N = []
+import sys
+input = sys.stdin.readline
 
-for Y in range (65,91) :
-    N.append(0)
+sentence = list(input().upper().rstrip())
+sentence_dict = {}
 
-for X in range (len(x)) :
-    for Y in range (65,91) :
-        if ord(x[X]) == Y :
-            N[Y-65] += 1
+for i in sentence :
 
+    if i in sentence_dict :
+        sentence_dict[i] += 1
+    else :
+        sentence_dict[i] = 1
 
-if N.count(max(N)) > 1 :
-    print("?")
+sentence_max = max(sentence_dict.values())
+
+if list(sentence_dict.values()).count(sentence_max) == 1 :
+    for j in sentence_dict :
+        if sentence_dict[j] == sentence_max :
+            print(j)
+
 else :
-    print(f"{chr(N.index(max(N))+65)}")
+    print('?')
