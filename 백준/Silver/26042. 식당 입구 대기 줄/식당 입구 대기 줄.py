@@ -6,6 +6,7 @@ N = int(input())
 max_people = 0
 people = 0
 people_number = 0
+
 for i in range (N) :
     N_list = list(map(int, input().split()))
     if N_list[0] == 1 :
