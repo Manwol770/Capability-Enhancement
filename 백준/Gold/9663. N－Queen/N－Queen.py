@@ -23,26 +23,8 @@ def N_Queen(N, x_visited, y_visited) :           # 재귀 돌려줄 함수 (N은
                 else :
                     break
             for j in range (0, -Num-1, -1) :
-                nx_2 = N-j
-                ny_2 = i+j
-                if 0 <= nx_2 < Num and 0 <= ny_2 < Num :
-                    if matrix[nx_2][ny_2] :
-                        T_F = 0
-                        break
-                else :
-                    break
-            for j in range (0, Num) :
-                nx_2 = N-j
-                ny_2 = i+j
-                if 0 <= nx_2 < Num and 0 <= ny_2 < Num :
-                    if matrix[nx_2][ny_2] :
-                        T_F = 0
-                        break
-                else :
-                    break
-            for j in range (0, Num) :
                 nx_2 = N+j
-                ny_2 = i+j
+                ny_2 = i-j
                 if 0 <= nx_2 < Num and 0 <= ny_2 < Num :
                     if matrix[nx_2][ny_2] :
                         T_F = 0
