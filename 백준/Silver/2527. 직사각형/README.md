@@ -30,7 +30,7 @@
 
 <p>또는 겹치는 부분이 아래 그림 (b)와 같이 선분이 될 수도 있고, 그림 (c)와 같이 점도 될 수 있다. </p>
 
-<p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/18c85091-ae8c-4380-88b9-5c25026f3af6/-/preview/" style="width: 83px; height: 97px;"></p>
+<p style="text-align: center;"><img alt="" src="" style="width: 83px; height: 97px;"></p>
 
 <p style="text-align: center;">그림 (b)</p>
 
