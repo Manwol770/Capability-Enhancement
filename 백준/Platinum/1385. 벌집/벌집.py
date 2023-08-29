@@ -5,24 +5,24 @@ input = sys.stdin.readline
 
 
 def que_append(x1, x2, y):
-    if 1 <= x2 <= 1800000 and not arr[x2]:
+    if 1 <= x2 <= 1000000 and not arr[x2]:
         que.append((x2, y))
         arr[x2] = x1
 
 
 N, M = map(int, input().split())
-arr = [''] * 2250001
+arr = [''] * 1000001
 n = 0
 k = 1
 start = [1, 1]
 while True:
-    if 6 * (n + 1) + k > 2250001:
+    if 6 * (n + 1) + k > 1020000:
         break
     n += 1
     k += 6 * n
     start.append(k)
 
-for i in range(1,800):
+for i in range(1,580):
     if start[i] >= N:
         n = i - 1
         break
