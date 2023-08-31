@@ -1,39 +1,43 @@
 import sys
+
 input = sys.stdin.readline
 
-def dfs(i,j):
 
-    stack = [(i,j)]
+def dfs(x, y):
+    stack = []
+    stack.append((x, y))
 
     while stack:
+        for i in range(8):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < h and 0 <= ny < w and arr[nx][ny] == '1':
+                stack.append((x, y))
+                arr[nx][ny] = '0'
+                x = nx
+                y = ny
+                break
+        else:
+            x, y = stack.pop()
 
-        x,y = stack.pop()
+    return 1
 
-        for k in range (8):
 
-            nx = x + delta[k][0]
-            ny = y + delta[k][1]
-            
-            if 0 <= nx < N and 0 <= ny < M and not visited[nx][ny] and matrix[nx][ny] == 1 :
-                visited[nx][ny] = 1
-                stack.append((nx,ny))
-        
+dx = [-1, -1, -1, 0, 0, 1, 1, 1]
+dy = [-1, 0, 1, -1, 1, -1, 0, 1]
 
-while True:
+in_, put_ = map(int, input().rstrip().split())
 
-    M, N = map(int, input().split())
-    if not N and not M:
-        break
+while in_ != 0 and put_ != 0:
+    w, h = in_, put_
+    arr = [input().rstrip().split() for _ in range(h)]
+    ans = 0
 
-    matrix = [list(map(int, input().split())) for _ in range (N)]
-    visited = [[0]*M for _ in range (N)]
-    delta = ((0,1), (0,-1), (1,0), (-1,0), (1,1), (1,-1), (-1,1),(-1,-1))
-    cnt = 0
-    
-    for i in range (N):
-        for j in range (M):
-            if matrix[i][j] == 1 and not visited[i][j]:       # 그래프 탐색
-                cnt += 1
-                visited[i][j] = 1
-                dfs(i,j)                                        # bfs든 dfs든 둘다 상관없음
-    print(cnt)                                                  # 뭉쳐있으면 센다
+    for x in range(h):
+        for y in range(w):
+            if arr[x][y] == '1':
+                ans += dfs(x, y)
+                arr[x][y] == '0'
+
+    print(ans)
+    in_, put_ = map(int, input().rstrip().split())
