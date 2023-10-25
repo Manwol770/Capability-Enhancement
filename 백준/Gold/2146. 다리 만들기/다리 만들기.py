@@ -1,77 +1,78 @@
+# 시간 비교용 테스트
+
 import sys
-input = sys.stdin.readline
 from collections import deque
-import copy
 
-delta = [(1,0), (0,1), (-1,0), (0,-1)]
+input = sys.stdin.readline
 
-def bfs (start, count):
-    q = deque([])
-    q.append(start)
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
 
-    while q :
 
+# 섬을 구분해주는 bfs
+def bfs1(i, j):
+    global count
+    q = deque()
+    q.append([i, j])
+    vis[i][j] = True
+    arr[i][j] = count
+
+    while q:
         x, y = q.popleft()
+        for k in range(4):
+            nx = x + dx[k]
+            ny = y + dy[k]
+            if 0 <= nx < n and 0 <= ny < n and arr[nx][ny] == 1 and not vis[nx][ny]:
+                vis[nx][ny] = True
+                arr[nx][ny] = count
+                q.append([nx, ny])
 
-        for i in range(4):
+# 바다를 건너며 가장 짧은 거리를 구한다.
+def bfs2(z):
+    global answer
+    dist = [[-1] * n for _ in range(n)] # 거리가 저장될 배열
+    q = deque()
 
-            nx = x + delta[i][0]
-            ny = y + delta[i][1]
-
-            if 0 <= nx < n and 0 <= ny < n and matrix[nx][ny] and visited[nx][ny] == -1:
-                q.append((nx, ny))
-                visited[nx][ny] = count
-
-def find_round ():
     for i in range(n):
         for j in range(n):
-            x = i
-            y = j
-            if visited[x][y] != -1:
-                for k in range(4):
-                    nx = x + delta[k][0]
-                    ny = y + delta[k][1]
+            if arr[i][j] == z:
+                q.append([i, j])
+                dist[i][j] = 0
 
-                    if 0 <= nx < n and 0 <= ny < n and visited[nx][ny] == -1:
-                        que.append((x, y, 0, visited[x][y]))
-                        break
+    while q:
+        x, y = q.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            # 갈 수 없는 곳이면 continue
+            if nx < 0 or nx >= n or ny < 0 or ny >= n:
+                continue
+            # 다른 땅을 만나면 기존 답과 비교하여 짧은 거리 선택
+            if arr[nx][ny] > 0 and arr[nx][ny] != z:
+                answer = min(answer, dist[x][y])
+                return
+            # 바다를 만나면 dist를 1씩 늘린다.
+            if arr[nx][ny] == 0 and dist[nx][ny] == -1:
+                dist[nx][ny] = dist[x][y] + 1
+                q.append([nx, ny])
+
 
 n = int(input())
-matrix = [list(map(int, input().split())) for _ in range(n)]
-visited = [[-1]*n for _ in range(n)]
-min_num = float('inf')
-in_count = 10001
+
+arr = [list(map(int, input().split())) for _ in range(n)]
+vis = [[False] * n for _ in range(n)]
+count = 1
+answer = sys.maxsize
 
 for i in range(n):
     for j in range(n):
-        if matrix[i][j] == 1 and visited[i][j] == -1:
-            visited[i][j] = in_count
-            bfs((i, j), in_count)
-            in_count += 1
+        if not vis[i][j] and arr[i][j] == 1:
+            bfs1(i, j)
+            count += 1
 
-que = []
-find_round()
-q = deque([])
-for i in que:
-    q.append(i)
-    copy_visited = copy.deepcopy(visited)
-    while q:
-        x, y, count, land_num = q.popleft()
-        if count >= min_num:
-            continue
-        
-        for i in range(4):
+# print(arr)
 
-                nx = x + delta[i][0]
-                ny = y + delta[i][1]
+for i in range(1, count):
+    bfs2(i)
 
-                if 0 <= nx < n and 0 <= ny < n and (copy_visited[nx][ny] == -1 or copy_visited[nx][ny] > count + 1):
-                    if copy_visited[nx][ny] != land_num and copy_visited[nx][ny] > 10000:
-                        min_num = min(min_num, count)
-                        break
-                    elif copy_visited[nx][ny] <= 10000:
-                        q.append((nx, ny, count + 1, land_num))
-                        copy_visited[nx][ny] = count + 1
-    # print(copy_visited)
-
-print(min_num)
+print(answer)
