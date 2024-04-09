@@ -6,7 +6,6 @@ import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
-import java.util.stream.Stream;
 
 public class Main {
 	static int  H, W, Max_H, Max_W;
@@ -38,13 +37,13 @@ public class Main {
 		print_num = 0;
 		Arrays.fill(water, -1);
 		
-//		graph  =  new int [W];
-//		st = new StringTokenizer(br.readLine());
-//		
-//		for(int i = 0; i < W; i++) {
-//			graph[i] =  Integer.parseInt(br.readLine());
-//		}
-		graph = Stream.of(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+		graph  =  new int [W];
+		st = new StringTokenizer(br.readLine());
+		
+		for(int i = 0; i < W; i++) {
+			graph[i] =  Integer.parseInt(st.nextToken());
+		}
+//		graph = Stream.of(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 		
 		PriorityQueue<Node>  pq = new PriorityQueue<>();
 		for(int i = 0; i < W; i++) {
