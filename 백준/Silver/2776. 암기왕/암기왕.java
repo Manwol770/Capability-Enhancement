@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class Main {
 	
@@ -25,7 +25,7 @@ public class Main {
 			st = new StringTokenizer(br.readLine());
 			M = Integer.parseInt(st.nextToken());
 			String [] min = br.readLine().split(" ");
-			TreeMap<String, String> yeon_map = new TreeMap<>();
+			HashMap<String, String> yeon_map = new HashMap<>();
 			for (String k : yeon) {
 				yeon_map.put(k, k);
 			}
